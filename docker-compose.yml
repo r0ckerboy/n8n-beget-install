@@ -132,24 +132,23 @@ services:
       - web
       - internal
       
-  short-video-generator:
-    image: a-sh-dev/short-video-generator:latest
-    container_name: short-video-generator
+    short-video-maker:
+    image: gyoridavid/short-video-maker:${SVM_VERSION:-latest-tiny}
+    container_name: short-video-maker
     restart: unless-stopped
     environment:
-      - LANGUAGE=ru
-      - AI_VOICE=ru-RU-DmitryNeural
-      - SUBTITLE_PROVIDER=whisper
-      - WHISPER_MODEL=medium
       - PEXELS_API_KEY=${PEXELS_API_KEY}
+      - LANGUAGE=${SVM_LANGUAGE:-ru}
+      - WHISPER_MODEL=${SVM_WHISPER_MODEL:-base}
+      - voice=${SVM_VOICE:-baya}
     volumes:
-      - ./data/videos:/app/public/videos
+      - ./data/videos:/app/data/videos
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.svm.rule=Host(`${SUBDOMAIN_SVM:-svm}.${BASE_DOMAIN}`)"
       - "traefik.http.routers.svm.entrypoints=websecure"
       - "traefik.http.routers.svm.tls.certresolver=letsencrypt"
-      - "traefik.http.services.svm.loadbalancer.server.port=3000"
+      - "traefik.http.services.svm.loadbalancer.server.port=3123"
     networks:
       - web
 
