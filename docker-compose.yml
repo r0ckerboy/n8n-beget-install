@@ -117,7 +117,7 @@ services:
       - "traefik.http.routers.postiz.rule=Host(`${SUBDOMAIN_POSTIZ:-postiz}.${BASE_DOMAIN}`)"
       - "traefik.http.routers.postiz.entrypoints=websecure"
       - "traefik.http.routers.postiz.tls.certresolver=letsencrypt"
-      - "traefik.http.services.postiz.loadbalancer.server.port=5000"
+      - "traefik.http.services.postiz.loadbalancer.server.port=3000"
     networks:
       - web
       - internal
