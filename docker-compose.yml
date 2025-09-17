@@ -143,6 +143,8 @@ services:
       - voice=${SVM_VOICE:-baya}
     volumes:
       - ./data/videos:/app/data/videos
+      - ./data/videos:/app/public/videos
+      - ./data/whisper-models:/app/data/libs/whisper/models:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.svm.rule=Host(`${SUBDOMAIN_SVM:-svm}.${BASE_DOMAIN}`)"
