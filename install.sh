@@ -16,13 +16,14 @@ log_flatline() { echo -e "${C_RED}>_ [ФЛЭТЛАЙН]${C_NC} $1"; exit 1; }
 # --- ГЛАВНАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ ---
 clear
 echo -e "${C_CYAN}"
+# --- НОВЫЙ ASCII-АРТ ---
 cat << "EOF"
   _   _   _   _   _   _   _     _   _    _   _   _ 
  / \ / \ / \ / \ / \ / \ / \   / \ / \  / \ / \ / \ 
 ( К | О | Н | Т | Е | Н | Т ) ( З | А )( В | О | Д )    
  \_/ \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/  \_/ \_/ \_/     
 
-> [СИСТЕМА ОНЛАЙН]: K O N T E N T - З А В О Д
+> [СИСТЕМА ОНЛАЙН]: K O H T E H T - Z A V O D
 > [СТАТУС]: ЗАГРУЗКА... // NIGHT CITY v2.0.77
 EOF
 echo -e "${C_NC}"
@@ -92,7 +93,7 @@ log_preem "Данные доступа скомпилированы и заши�
 
 # Создание структуры
 log_jack_in "Создаю хранилища и дата-крепость..."
-mkdir -p ./data/{postgres,redis,n8n,letsencrypt,videos,postiz-uploads}
+mkdir -p ./data/{postgres,redis,n8n,letsencrypt,videos}
 touch ./data/letsencrypt/acme.json
 chmod 600 ./data/letsencrypt/acme.json
 
@@ -114,6 +115,7 @@ echo "Доступные точки входа в Сеть:"
 echo -e " > n8n: ${C_YELLOW}https://n8n.${BASE_DOMAIN}${C_NC}"
 echo -e " > Postiz (Gitroom): ${C_YELLOW}https://postiz.${BASE_DOMAIN}${C_NC}"
 echo -e " > Short Video Maker: ${C_YELLOW}https://svm.${BASE_DOMAIN}${C_NC}"
+echo -e " > Консоль Traefik: ${C_YELLOW}https://traefik.${BASE_DOMAIN}${C_NC}"
 echo ""
 log_jack_in "Дай демонам пару минут на калибровку и установку защищенного соединения."
 echo -e "${C_GREEN}Не теряйся в Сети, чумба.${C_NC}"
