@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: traefik:${TRAEFIK_VERSION:-v2.11}
+    image: traefik:${TRAFIK_VERSION:-v2.11}
     container_name: traefik
     restart: unless-stopped
     command:
@@ -48,10 +48,9 @@ services:
       retries: 5
 
   redis:
-    image: redis:latest
+    image: redis:${REDIS_VERSION:-7-alpine}
     container_name: redis
     restart: unless-stopped
-    command: redis-server --save 60 1 --loglevel warning --dir /data
     volumes:
       - ./data/redis:/data
     networks:
@@ -66,7 +65,6 @@ services:
     build: ./n8n
     container_name: n8n
     restart: unless-stopped
-    user: "1000:1000"
     environment:
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
@@ -97,7 +95,6 @@ services:
     image: ghcr.io/gitroomhq/postiz-app:latest
     container_name: postiz
     restart: unless-stopped
-    command: sh -c "npx prisma migrate deploy && node main.js"
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-admin}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-main_db}?schema=public
       - REDIS_URL=redis://redis:6379
@@ -105,13 +102,9 @@ services:
       - FRONTEND_URL=https://${SUBDOMAIN_POSTIZ:-postiz}.${BASE_DOMAIN}
       - NEXT_PUBLIC_BACKEND_URL=https://${SUBDOMAIN_POSTIZ:-postiz}.${BASE_DOMAIN}/api
       - JWT_SECRET=${N8N_ENCRYPTION_KEY}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - STORAGE_PROVIDER=local
       - UPLOAD_DIRECTORY=/uploads
       - NEXT_PUBLIC_UPLOAD_DIRECTORY=/uploads
-      - IS_GENERAL="true"
-      - DISABLE_REGISTRATION="false"
     volumes:
       - ./data/postiz-uploads:/uploads
     depends_on:
@@ -133,12 +126,8 @@ services:
     image: gyoridavid/short-video-maker:${SVM_VERSION:-latest-tiny}
     container_name: short-video-maker
     restart: unless-stopped
-    user: "1000:1000"
     environment:
       - PEXELS_API_KEY=${PEXELS_API_KEY}
-      - LANGUAGE=${SVM_LANGUAGE:-ru}
-      - WHISPER_MODEL=${SVM_WHISPER_MODEL:-base}
-      - voice=${SVM_VOICE:-baya}
     volumes:
       - ./data/videos:/app/data/videos
     labels:
