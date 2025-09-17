@@ -132,7 +132,7 @@ services:
       - web
       - internal
       
-    short-video-maker:
+  short-video-maker:
     image: gyoridavid/short-video-maker:${SVM_VERSION:-latest-tiny}
     container_name: short-video-maker
     restart: unless-stopped
