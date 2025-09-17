@@ -109,6 +109,10 @@ services:
       - UPLOAD_DIRECTORY=/uploads
       - NEXT_PUBLIC_UPLOAD_DIRECTORY=/uploads
       - BACKEND_INTERNAL_URL=http://postiz:3000
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - IS_GENERAL: "true"
+      - DISABLE_REGISTRATION: "false"
     volumes:
       - ./data/postiz-uploads:/uploads
     depends_on:
