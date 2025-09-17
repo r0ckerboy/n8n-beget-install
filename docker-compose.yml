@@ -133,7 +133,7 @@ services:
       - internal
       
   short-video-generator:
-    image: ashdev/short-video-generator:latest
+    image: a-sh-dev/short-video-generator:latest
     container_name: short-video-generator
     restart: unless-stopped
     environment:
